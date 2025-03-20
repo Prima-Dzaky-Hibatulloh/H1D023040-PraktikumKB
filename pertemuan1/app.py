@@ -2,8 +2,6 @@ import datetime
 import random
 
 perpustakaan = {}
-
-
 peminjaman = {}
 
 def tampilkan_buku():
@@ -14,13 +12,10 @@ def tampilkan_buku():
         for id_buku, data in perpustakaan.items():
             if data["status"]:  
                 status = "Tersedia"
-                peminjam_info = ""
             else:  
                 status = f"**Dipinjam oleh {peminjaman[id_buku]['nama']}** pada {peminjaman[id_buku]['tanggal']}"
-                peminjam_info = f" (Peminjam: {peminjaman[id_buku]['nama']})"
             
             print(f"ID: {id_buku} | Judul: {data['judul']} | Penulis: {data['penulis']} | Status: {status}")
-
 
 def tambah_buku():
     judul = input("\nMasukkan judul buku: ")
@@ -34,7 +29,6 @@ def tambah_buku():
     }
     print(f"Buku '{judul}' berhasil ditambahkan dengan ID {id_buku}.")
 
-
 def cari_buku():
     kata_kunci = input("\nMasukkan judul atau nama penulis: ").lower()
     hasil = []
@@ -46,11 +40,7 @@ def cari_buku():
     if hasil:
         print("\nHasil Pencarian:")
         for id_buku, data in hasil:
-            if data["status"]:  
-                status = "Tersedia"
-            else: 
-                status = f"**Dipinjam oleh {peminjaman[id_buku]['nama']}** pada {peminjaman[id_buku]['tanggal']}"
-            
+            status = "Tersedia" if data["status"] else f"**Dipinjam oleh {peminjaman[id_buku]['nama']}** pada {peminjaman[id_buku]['tanggal']}"
             print(f"ID: {id_buku} | Judul: {data['judul']} | Penulis: {data['penulis']} | Status: {status}")
     else:
         print("Buku tidak ditemukan.")
@@ -94,29 +84,33 @@ def kembalikan_buku():
     except ValueError:
         print("Masukkan ID yang valid!")
 
-while True:
-    print("\n=== SISTEM MANAJEMEN PERPUSTAKAAN CILACAP ===")
-    print("1. Tampilkan Semua Buku")
-    print("2. Tambah Buku")
-    print("3. Cari Buku")
-    print("4. Pinjam Buku")
-    print("5. Kembalikan Buku")
-    print("6. Keluar")
+def main():
+    while True:
+        print("\n=== SISTEM MANAJEMEN PERPUSTAKAAN CILACAP ===")
+        print("1. Tampilkan Semua Buku")
+        print("2. Tambah Buku")
+        print("3. Cari Buku")
+        print("4. Pinjam Buku")
+        print("5. Kembalikan Buku")
+        print("6. Keluar")
 
-    pilihan = input("Pilih menu (1-6): ")
+        pilihan = input("Pilih menu (1-6): ")
 
-    if pilihan == "1":
-        tampilkan_buku()
-    elif pilihan == "2":
-        tambah_buku()
-    elif pilihan == "3":
-        cari_buku()
-    elif pilihan == "4":
-        pinjam_buku()
-    elif pilihan == "5":
-        kembalikan_buku()
-    elif pilihan == "6":
-        print("Terima kasih! Program selesai.")
-        break
-    else:
-        print("Pilihan tidak valid, silakan coba lagi.")
+        if pilihan == "1":
+            tampilkan_buku()
+        elif pilihan == "2":
+            tambah_buku()
+        elif pilihan == "3":
+            cari_buku()
+        elif pilihan == "4":
+            pinjam_buku()
+        elif pilihan == "5":
+            kembalikan_buku()
+        elif pilihan == "6":
+            print("Terima kasih! Program selesai.")
+            break
+        else:
+            print("Pilihan tidak valid, silakan coba lagi.")
+
+if __name__ == "__main__":
+    main()
